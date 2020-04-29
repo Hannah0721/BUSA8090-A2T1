@@ -1,0 +1,70 @@
+Question1.a
+
+awk '$2 < 1000' expression.tab
+
+
+Question1.b
+
+awk '/ase/' annotation.tab
+
+
+Question1.c 
+
+awk '/Purine/||/Pyrimidine/' annotation.tab
+
+
+
+Question2.a
+
+# In the local machine 
+
+scp -i busa8090_s1_2020_45830401_2.pem world_x.sql ubuntu@ec2-52-65-166-73.ap-southeast-2.compute.amazonaws.com:
+
+# In my Ubuntu machine
+
+sudo mysql
+
+
+# In mysql
+
+mysql> grant all on world_x.* TO awkologist@localhost IDENTIFIED BY "awkology";
+
+mysql> create database world_x;
+
+
+mysql> use world_x;
+
+
+mysql> source world_x.sql;
+
+
+mysql> show tables;
+
+
+
+Question2.b
+
+
+mysql -u awkologist -p world_x -e 'select c2.Name, c1.Name, c3.Percentage   from city c1, country c2, countrylanguage c3 where c1.ID=c2.Capital and  c2.Code=c3.CountryCode and c3.Language = "English" and c3.Percentage>50;'
+
+
+
+
+Question3
+
+In R
+# BUSA8090--A2T1--Yun-Ching Chen
+# Question 3
+
+library(tidyverse)
+country <- c ("Belgium", "Spain", "Italy", "France", 
+              "United Kingdom", "US","Germany", "Australia")
+mortality <- c (64.18, 50.98, 45.27, 35.37, 32.70, 17.84, 7.61, 0.36)
+Covid_19 <- tibble (country, mortality)
+Covid_19
+gg1<-ggplot( Covid_19, aes ( x = reorder(country, mortality), 
+                              y=mortality)) + geom_bar(stat="identity", fill="steelblue")+ coord_flip()
+gg2<- gg1 + ggtitle("Covid-19 deaths per 100,00 population") +xlab("Country") + ylab("Mortality")
+gg2
+
+
